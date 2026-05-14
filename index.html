@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -112,6 +112,7 @@ body {
   display:none;
   flex-direction:column;
   z-index:10;
+  overflow-y:auto; /* FIXED */
 }
 
 .viewer.active {
@@ -123,7 +124,6 @@ body {
   flex-direction:column;
   gap:20px;
   padding:20px;
-  overflow-y:auto;
 }
 
 .viewer-card {
@@ -135,6 +135,8 @@ body {
 
 .viewer-card img {
   width:100%;
+  display:block;
+  cursor:pointer;
 }
 
 /* FULLSCREEN */
@@ -210,19 +212,12 @@ body {
 
 const img = "https://via.placeholder.com/800";
 
-/* YOUR EXACT STRUCTURE (kept) */
+/* YOUR EXACT STRUCTURE */
 const folder1 = [
- 'https://i.postimg.cc/vZ0gSJY7/spiderman-christmas-holly-berries-snowy-city-desktop-wallpaper.jpg',
-                 img,
-                 img,
-                 img,
-                 img,
-                 img,
-                 img,
-                 img,
-                 img,
-                 img
-                ];
+  'https://i.postimg.cc/VvmNDgCR/IMG-20260501-WA0001.jpg',
+  img,img,img,img,img,img,img,img,img
+];
+
 const folder2 = [img,img,img,img,img,img,img,img,img,img];
 const folder3 = [img,img,img,img,img,img,img,img,img,img];
 const folder4 = [img,img,img,img,img,img,img,img,img,img];
@@ -262,13 +257,16 @@ function openFolder(folder) {
 
   folder.forEach(img => {
     g.innerHTML += `
-      <div class="viewer-card" onclick="openFullscreen('${img}')">
-        <img src="${img}">
+      <div class="viewer-card">
+        <img src="${img}" onclick="openFullscreen(this.src)">
       </div>
     `;
   });
 
   viewer.classList.add("active");
+
+  /* RESET SCROLL */
+  viewer.scrollTop = 0;
 }
 
 /* CLOSE */
